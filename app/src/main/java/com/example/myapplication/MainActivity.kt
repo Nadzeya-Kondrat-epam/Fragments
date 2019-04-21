@@ -29,13 +29,16 @@ class MainActivity : AppCompatActivity(), CounterClickListener {
     override fun onCounterClicked() {
         counter++
         // remove last saved in backstack fragment to replace it with the new one
-        supportFragmentManager.popBackStack()
-        if (isPortrait) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_holder, FragmentB.newInstance(counter))
-                .addToBackStack(null)
-                .commit()
+        val fragmentHolder = if (isPortrait) {
+            R.id.fragment_holder
+        } else {
+            R.id.fragment_holder_b
         }
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(fragmentHolder, FragmentB.newInstance(counter))
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onBackPressed() {
