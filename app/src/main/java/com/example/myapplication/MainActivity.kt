@@ -28,15 +28,11 @@ class MainActivity : AppCompatActivity(), CounterClickListener {
 
     override fun onCounterClicked() {
         counter++
-        supportFragmentManager.popBackStack() // replace
+        // remove last saved in backstack fragment to replace it with the new one
+        supportFragmentManager.popBackStack()
         if (isPortrait) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_holder, FragmentB.newInstance(counter))
-                .addToBackStack(null)
-                .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_holder_b, FragmentB.newInstance(counter))
                 .addToBackStack(null)
                 .commit()
         }
